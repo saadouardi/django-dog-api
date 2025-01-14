@@ -1,7 +1,7 @@
 from rest_framework import serializers # type: ignore
 from .models import Dog, Breed
 
-class BreedSerializer(serializers.ModalSerializer):
+class BreedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Breed
         fields = '__all__'
