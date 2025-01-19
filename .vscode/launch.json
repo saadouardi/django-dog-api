@@ -11,24 +11,25 @@
             "justMyCode": true,
             "console": "integratedTerminal",
             "env": {
-                "DJANGO_SETTINGS_MODULE": "dogs_api.settings"
+                "DJANGO_SETTINGS_MODULE": "settings"
             }
         },
         {
             "name": "Python: pytest",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/venv/Scripts/python.exe",
+            "module": "pytest",
             "args": [
-                "pytest"
+                "--maxfail=5",
+                "--disable-warnings",
+                "-v"
             ],
             "justMyCode": true,
+            "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}"
-            },
-            "console": "integratedTerminal"
+            }
         }
+        
     ]
 }
-
-
