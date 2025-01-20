@@ -2,6 +2,7 @@ from django.db import models # type: ignore
 from django.core.validators import EmailValidator
 from phonenumber_field.modelfields import PhoneNumberField
 from phonenumbers import parse, is_valid_number
+from simple_history.models import HistoricalRecords
 
 
 class Breed(models.Model):
@@ -53,6 +54,7 @@ class Dog(models.Model):
         null=True,
         help_text="Enter a valid international phone number (e.g., +1234567890)."
     )
+    history = HistoricalRecords()
 
     # Custom validation for phone number
     def clean_phone_number(self):

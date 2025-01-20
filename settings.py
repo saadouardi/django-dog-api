@@ -1,11 +1,47 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,  # Allow built-in Django logs
+    "formatters": {
+        "default": {
+            "format": "[%(asctime)s] %(levelname)s - %(message)s",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "default",
+            "filename": os.path.join(BASE_DIR, "app.log"),  # ✅ Store logs in project root
+        },
+    },
+    "root": {
+        "level": "DEBUG",
+        "handlers": ["console", "file"],
+    },
+    "loggers": {
+        "django": {
+            "level": "INFO",
+            "handlers": ["console", "file"],
+            "propagate": False,
+        },
+        "django.request": {  # ✅ Logs Django requests
+            "level": "WARNING",
+            "handlers": ["console", "file"],
+            "propagate": False,
+        },
+    },
+}
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-oxp+_@#@asbb!3$@(fuv#d&c8t-qsbplrjo%t8m&43!+0pm(5i'
@@ -26,6 +62,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'simple_history', # Test Logs in Django Admin Panel
+    'debug_toolbar', # Test Logs Using Django Debug Toolbar
     'dogs',
 ]
 
@@ -37,6 +75,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = 'dogs.urls'
