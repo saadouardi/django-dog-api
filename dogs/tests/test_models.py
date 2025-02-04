@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from dogs.models import Breed, Dog
 
-
 class TestModelsWithMock(TestCase):
     def setUp(self):
         """
